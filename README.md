@@ -2,7 +2,7 @@
 
 A simple system for managing two-tiered state machines.
 
-## -----> WHY I MADE THIS
+## WHY I MADE THIS
 
 I wanted a simple state machine that would:
   * Work every time, without running an INIT function.
@@ -10,7 +10,7 @@ I wanted a simple state machine that would:
   * Automatically reset the sub-state to 0 whenever we changed states.
       
 
-## -----> HOW DO I INSTALL IT?
+##  HOW DO I INSTALL IT?
 
 Create a new script in Gamemaker Studio 2, and paste the ADV_STATE.txt script into it. 
 
@@ -19,13 +19,13 @@ Create a new script in Gamemaker Studio 2, and paste the ADV_STATE.txt script in
 I've provided a sample of how to use it in SAMPLE.txt.
       
 
-### ------> PLEASE NOTE
+### PLEASE NOTE
 
 State and sub-state integers must be positive whole numbers between 0 and 9999.  (No negative numbers, no decimals)
 
 
 
-## -----> HOW DOES IT WORK? (simple)
+## HOW DOES IT WORK? (fast)
 
 Imagine a state sytem with primary and sub-tier states, like this:
 
@@ -45,24 +45,12 @@ Start by calling adv_state_get() (no arguments) - it returns the INT of the prim
 
 Providing the current primary_tier_int returns the current sub-tier state: adv_state_get(primary_tier_int)
 
-To move to the start of a new primary tier, call:
-
-```javascript
-          adv_state_set(new_primary_tier_int)
-```
-
-To advance to another sub-tier inside a primary tier, call:
-
-```javascript
-          adv_state_set([primary_tier_int],new_sub_tier_int)
-```
-          
+To move to a new primary or sub tier, call adv_state_set(primary_tier_int,[subtier_int]).
 
 
-
-## -----> HOW DOES THIS WORK? (documentation)
+## HOW DOES THIS WORK? (documentation)
     
-It uses integers stored in a local variable ("ADV_STATE") to manage progression through each major and minor state.
+It uses integers stored in a local variable ("ADV_STATE") on the calling object to manage progression through each major and minor state.
 
 ````javascript
          adv_state_get([primary_tier_int])
@@ -91,4 +79,18 @@ If the first value is undefined (the GMS constant, not a string called "undefine
 
 If a primary tier has not been supplied or previously set, the Advanced State Machine will set it to 0 by default.
 
+
+
+````javascript
+         adv_state_external_get(object_id,[primary_tier_int])
+````
+
+Functions exactly like adv_state_get, but on a separate object (provided by object_id).
+
+
+````javascript
+        adv_state_external_set(object_id,primary_tier_int/undefined,[subtier_state_int])
+````
+
+Functions exactly like adv_state_set, but on a separate object (provided by object_id).
 
