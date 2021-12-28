@@ -48,12 +48,13 @@ Providing the current primary_tier_int returns the current sub-tier state: adv_s
 To move to a new primary or sub tier, call adv_state_set(primary_tier_int,[subtier_int]).
 
 
-## HOW DOES THIS WORK? (documentation)
+# HOW DOES THIS WORK? (documentation)
     
 It uses integers stored in a local variable ("ADV_STATE") on the calling object to manage progression through each major and minor state.
 
 
-###         adv_state_get([primary_tier_int])
+## Getting the State
+###  adv_state_get( [primary_tier_int] )
 
 If no argument is provided, it returns an INT of the current primary tier state. (If no state has been set before, it sets the state to 0 and returns that)
 
@@ -61,16 +62,16 @@ If a primary_tier_int is provided, it returns an INT of the current sub-tier sta
 
 (NOTE: if the current primary tier is different than the one supplied, the system will reset the state to the primary tier provided and set the sub-state to 0)
 
+
+## Setting the State
+###        adv_state_set( primary_tier_int )
         
-````javascript    
-        adv_state_set(primary_tier_int)
-````        
 
 If only one value is provided, it sets the current primary tier to that INT.
 
-````javascript
-        adv_state_set(primary_tier_int/undefined,[subtier_state_int])
-````
+
+###        adv_state_set( primary_tier_int/undefined, [subtier_state_int] )
+
 
 If two values are provided, it sets the primary tier to primary_tier_int and the sub-tier to subtier_state_int.
 
@@ -80,16 +81,17 @@ If a primary tier has not been supplied or previously set, the Advanced State Ma
 
 
 
-````javascript
-         adv_state_external_get(object_id,[primary_tier_int])
-````
+## External State Functions
+
+###         adv_state_external_get( object_id, [primary_tier_int] )
+
 
 Functions exactly like adv_state_get, but on a separate object (provided by object_id).
 
 
-````javascript
-        adv_state_external_set(object_id,primary_tier_int/undefined,[subtier_state_int])
-````
+
+###        adv_state_external_set( object_id, primary_tier_int/undefined, [subtier_state_int] )
+
 
 Functions exactly like adv_state_set, but on a separate object (provided by object_id).
 
