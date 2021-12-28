@@ -1,6 +1,8 @@
-This is the Advanced State Machine system I use for managing a two-tiered state machine.
+# Advanced State Machine for Gamemaker Studio 2
 
-[h1]-----> WHY I MADE THIS[/h1]
+A simple system for managing two-tiered state machines.
+
+## -----> WHY I MADE THIS
 
 I wanted a simple state machine that would:
   * Work every time, without running an INIT function.
@@ -8,23 +10,23 @@ I wanted a simple state machine that would:
   * Automatically reset the sub-state to 0 whenever we changed states.
       
 
--------> HOW DO I INSTALL IT?
+## -----> HOW DO I INSTALL IT?
 
 Create a new script in Gamemaker Studio 2, and paste the ADV_STATE.txt script into it. (I may come back and pretty this up later, I'm working on something ATM)
 
 I've provided a sample of how to use it in SAMPLE.txt.
       
 
-------> PLEASE NOTE
+### ------> PLEASE NOTE
 
 State and sub-state integers must be positive whole numbers between 0 and 9999.  (No negative numbers, no decimals)
 
 
 
------> HOW DOES IT WORK? (simple)
+## -----> HOW DOES IT WORK? (simple)
 
 Imagine a state sytem with primary and sub-tier states, like this:
-      
+```      
           State_0 (Primary Tier)
               Substate_0 (Sub-tier)
               Substate_1 (Sub-tier)
@@ -34,19 +36,22 @@ Imagine a state sytem with primary and sub-tier states, like this:
               Substate_1 (Sub-tier)
           
           (etc)
-      
+```
 Start by calling adv_state_get() (no arguments) - it returns the INT of the primary tier you're on.
 
 Providing the current primary_tier_int returns the current sub-tier state: adv_state_get(primary_tier_int)
 
 To move to the start of a new primary tier, call:
-          
-          adv_state_set(new_primary_tier_int)
-          
-To advance to another sub-tier inside a primary tier, call:
-      
-          adv_state_set([primary_tier_int],new_sub_tier_int)
 
+```clike
+          adv_state_set(new_primary_tier_int)
+```
+
+To advance to another sub-tier inside a primary tier, call:
+
+```clike
+          adv_state_set([primary_tier_int],new_sub_tier_int)
+```
           
 
 
