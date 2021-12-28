@@ -1,6 +1,6 @@
 This is the Advanced State Machine system I use for managing a two-tiered state machine.
 
------> WHY I MADE THIS
+[h1]-----> WHY I MADE THIS[/h1]
 
 I wanted a simple state machine that would:
   * Work every time, without running an INIT function.
@@ -55,7 +55,7 @@ To advance to another sub-tier inside a primary tier, call:
     
 It uses integers stored in a local variable ("ADV_STATE") to manage progression through each major and minor state.
     
-        adv_state_get([primary_tier_int])
+[b]adv_state_get([primary_tier_int])[/b]
         
 If no argument is provided, it returns an INT of the current primary tier state. (If no state has been set before, it sets the state to 0 and returns that)
 
