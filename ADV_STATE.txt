@@ -1,0 +1,123 @@
+// Copy and paste everything below into a script file in GMS2 (I call mine adv_state_scripts)
+
+/*
+Advanced State Machine v1.0 by Edward Newton (https://github.com/aguynamededward/gms2.3_adv_state_machine/)
+Functional as of Gamemaker Studio 2 Runtime v2.3.3.437	
+	
+Bugs or other issues: twitter: @aguynamededward
+	
+
+MIT License
+
+Copyright (c) 2021 Edward Newton (github.com/aguynamededward)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
+
+
+
+//// @func adv_state_get([state_int]) No argument: returns state we're in.  With state_int, returns sub_state_int we're in.
+function adv_state_get(_state = -1000){
+	
+
+	if(_state == -1000)
+		{	/// We're asking for the overall internal state
+			if(!variable_instance_exists(id,"ADV_STATE")) 
+				{
+					id.ADV_STATE = 0;
+					return 0;
+				}
+			else return floor(ADV_STATE);
+			
+		}
+	else
+	{	// we provided the state - we want the substate
+		_state = floor(_state);
+
+		if(!variable_instance_exists(id,"ADV_STATE")) ADV_STATE = _state;
+		if(floor(ADV_STATE) != _state) ADV_STATE = _state;
+	
+		return ((ADV_STATE - _state) * 10000);
+	}
+}
+
+
+
+/// @func adv_state_set(state_int/undefined,[substate_int]) Sets the state to state.substate_int. 
+function adv_state_set(_state = undefined,_sub_state_int = 0) {
+	
+	if(_state == undefined) 
+		{
+			if(!variable_instance_exists(id,"ADV_STATE")) ADV_STATE = 0;
+			
+			_state = floor(ADV_STATE);	
+		}
+	else _state = floor(_state);
+	
+	ADV_STATE = _state + (_sub_state_int/10000);
+	
+	return ADV_STATE;
+}
+
+
+/// @func adv_state_external_get(object_id, [state_int]) No supplied state_int: returns object_id's primary state INT. With primary state_int, returns object_id's sub-state INT. 
+ function adv_state_external_get(_object_id, _state = -1000){
+	 
+	 if(instance_exists(_object_id))
+		{
+			var _val;
+			
+			with(_object_id)
+				{
+					_val = adv_state_get(_state);	
+				}
+			
+			return _val;
+		}
+
+	else
+		{
+			show_debug_message("ADV_STATE_EXTERNAL_GET: " + string(_object_id) + " is not a valid instance ID (non-existent or deactivated?");	
+			return -1;
+		}
+ }
+
+
+/// @func adv_state_external_set(object_id, state_int,[sub_state_int]) Sets object_id's advanced state system to state (state_int) (and optionally: sub_state to sub_state_int)
+function adv_state_external_set(_object_id, _state = undefined,_sub_state_int = 0){
+	 
+	 if(instance_exists(_object_id))
+		{
+			var _val;
+			
+			with(_object_id)
+				{
+					_val = adv_state_set(_state,_sub_state_int);	
+				}
+			
+			return _val;
+		}
+
+	else
+		{
+			show_debug_message("ADV_STATE_EXTERNAL_SET: " + string(_object_id) + " is not a valid instance ID (non-existent or deactivated?");	
+			return -1;
+		}
+ }
