@@ -65,19 +65,16 @@ If a primary_tier_int is provided, it returns an INT of the current sub-tier sta
 
 ## Setting the State
 ###        adv_state_set( primary_tier_int )
-        
-
-If only one value is provided, it sets the current primary tier to that INT.
-
 
 ###        adv_state_set( primary_tier_int/undefined, [subtier_state_int] )
 
-
+If only one value is provided, it sets the current primary tier to that INT.
 If two values are provided, it sets the primary tier to primary_tier_int and the sub-tier to subtier_state_int.
 
-If the first value is undefined (the GMS constant, not a string called "undefined"), it uses the current primary tier and only sets the sub-tier.
+### Note: 
+* If the first value is **undefined** (the GMS constant, not a string called "undefined"), it uses the current primary tier and only sets the sub-tier.
 
-If a primary tier has not been supplied or previously set, the Advanced State Machine will set it to 0 by default.
+* If a primary tier has not been supplied or previously set, the Advanced State Machine will always set it to 0 by default.
 
 
 
