@@ -53,19 +53,21 @@ To move to the start of a new primary tier, call:
 
 To advance to another sub-tier inside a primary tier, call:
 
-```clike
+```javascript
           adv_state_set([primary_tier_int],new_sub_tier_int)
 ```
           
 
 
 
------> HOW DOES THIS WORK? (documentation)
+## -----> HOW DOES THIS WORK? (documentation)
     
 It uses integers stored in a local variable ("ADV_STATE") to manage progression through each major and minor state.
-    
-[b]adv_state_get([primary_tier_int])[/b]
-        
+
+````javascript
+         adv_state_get([primary_tier_int])
+````
+
 If no argument is provided, it returns an INT of the current primary tier state. (If no state has been set before, it sets the state to 0 and returns that)
 
 If a primary_tier_int is provided, it returns an INT of the current sub-tier state.
@@ -73,13 +75,15 @@ If a primary_tier_int is provided, it returns an INT of the current sub-tier sta
 (NOTE: if the current primary tier is different than the one supplied, the system will reset the state to the primary tier provided and set the sub-state to 0)
 
         
-    
+````javascript    
         adv_state_set(primary_tier_int)
-        
+````        
+
 If only one value is provided, it sets the current primary tier to that INT.
 
-
+````javascript
         adv_state_set(primary_tier_int/undefined,[subtier_state_int])
+````
 
 If two values are provided, it sets the primary tier to primary_tier_int and the sub-tier to subtier_state_int.
 
