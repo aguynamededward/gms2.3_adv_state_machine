@@ -52,9 +52,8 @@ To move to a new primary or sub tier, call adv_state_set(primary_tier_int,[subti
     
 It uses integers stored in a local variable ("ADV_STATE") on the calling object to manage progression through each major and minor state.
 
-````javascript
-         adv_state_get([primary_tier_int])
-````
+
+###         adv_state_get([primary_tier_int])
 
 If no argument is provided, it returns an INT of the current primary tier state. (If no state has been set before, it sets the state to 0 and returns that)
 
