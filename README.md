@@ -12,7 +12,9 @@ I wanted a simple state machine that would:
 
 ## -----> HOW DO I INSTALL IT?
 
-Create a new script in Gamemaker Studio 2, and paste the ADV_STATE.txt script into it. (I may come back and pretty this up later, I'm working on something ATM)
+Create a new script in Gamemaker Studio 2, and paste the ADV_STATE.txt script into it. 
+
+(I may come back and pretty this up later, I'm working on something ATM)
 
 I've provided a sample of how to use it in SAMPLE.txt.
       
@@ -26,6 +28,7 @@ State and sub-state integers must be positive whole numbers between 0 and 9999. 
 ## -----> HOW DOES IT WORK? (simple)
 
 Imagine a state sytem with primary and sub-tier states, like this:
+
 ```      
           State_0 (Primary Tier)
               Substate_0 (Sub-tier)
@@ -37,13 +40,14 @@ Imagine a state sytem with primary and sub-tier states, like this:
           
           (etc)
 ```
+
 Start by calling adv_state_get() (no arguments) - it returns the INT of the primary tier you're on.
 
 Providing the current primary_tier_int returns the current sub-tier state: adv_state_get(primary_tier_int)
 
 To move to the start of a new primary tier, call:
 
-```clike
+```javascript
           adv_state_set(new_primary_tier_int)
 ```
 
