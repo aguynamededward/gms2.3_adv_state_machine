@@ -1,5 +1,3 @@
-// Copy and paste everything below into a script file in GMS2 (I call mine adv_state_scripts)
-
 /*
 Advanced State Machine v1.0 by Edward Newton (https://github.com/aguynamededward/gms2.3_adv_state_machine/)
 Functional as of Gamemaker Studio 2 Runtime v2.3.3.437	
@@ -28,6 +26,54 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+*/
+
+
+
+/*
+
+TEMPLATE STATE MACHINE CODE 
+is at the bottom of this document.
+
+
+SETTING UP ENUMS FOR THE STATE MACHINE
+It's much easier to use the state machine with enums, and you can set up the sub-state enums at the same time.
+
+Uncomment the code below and the enum will be set up when your game runs.
+
+*/
+
+
+/* 
+
+enum state { // Remember, state and substate enums must be a positive integer between 0 and 9999
+	
+	// list all the primary states first
+	child,
+	adult,
+	elderly,
+	
+	// list substates in an easy-to-remember way (resetting them to 0 is also nice for easy tracking)
+	
+	child_baby = 0,
+	child_toddler,
+	child_teenager,
+	
+	adult_college = 0,
+	adult_job,
+	adult_parent,
+
+
+	elderly_retired = 0,
+	elderly_grandparent,
+	elderly_motorcycleGangHooligan
+
+	// Look at the bottom of this code for an example of how to set up your state system in the STEP event
+}
+
+
+
 
 */
 
@@ -121,3 +167,100 @@ function adv_state_external_set(_object_id, _state = undefined,_sub_state_int = 
 			return -1;
 		}
  }
+ 
+ 
+ 
+ 
+ /*
+ 
+Template state machine switching:
+ 
+I recommend setting up some enums to make tracking states easier (See above).
+	
+COPY BELOW INTO OBJECT'S STEP EVENT AND MODIFY AS DESIRED:
+----------------------------------------------------------------
+	
+var _state = adv_state_get();
+var _substate = adv_state_get(_state);
+
+switch(_state)
+	{
+		case state.child:
+			{
+				switch(_substate)
+					{
+						case state.child_baby:
+							{
+								// Code
+								
+								// If we're ready to leave this substate, move on
+								adv_state_set(undefined,state.child_toddler);
+								break;
+							}
+					
+						case state.child_toddler:
+							{
+								// Code
+								
+								// If we're ready to leave this substate, move on
+								adv_state_set(undefined,state.child_teenager);
+								break;
+							}
+					
+						case state.child_teenager:
+							{
+								// Code
+								
+								// We're totally done with our first state, move to next.
+								adv_state_set(state.adult);
+								break;
+							}
+						
+					}
+			
+				break;
+			}
+	
+		case state.adult:
+			{
+				switch(_substate)
+					{
+						case state.adult_college:
+							{
+								// Code
+								
+								// If we're ready to leave this substate, move on
+								adv_state_set(undefined,state.adult_job);
+								break;
+							}
+					
+						case state.adult_job:
+							{
+								// Code
+								
+								// If we're ready to leave this substate, move on
+								adv_state_set(undefined,state.adult_parent);
+								break;
+							}
+					
+						case state.adult_parent:
+							{
+								// Code
+								
+								// We're totally done with our second state, move to third.
+								adv_state_set(state.elderly);
+								break;
+							}
+						
+					}
+			
+				break;
+			}
+	
+	}
+	
+	
+	
+	
+ 
+ */
