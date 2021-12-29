@@ -50,7 +50,7 @@ To move to a new primary or sub tier, call adv_state_set(primary_tier_int,[subti
 
 # HOW DOES THIS WORK? (documentation)
     
-It uses integers stored in a local variable ("ADV_STATE") on the calling object to manage progression through each major and minor state.
+It uses integers stored in a local variable ("ADV_STATE") on the calling object to manage progression through each primary tier and sub-tier state.
 
 
 ## Getting the State
