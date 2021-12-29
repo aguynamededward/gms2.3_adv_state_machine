@@ -12,7 +12,7 @@ I wanted a simple state machine that would:
 
 ##  HOW DO I INSTALL IT?
 
-Create a new script in Gamemaker Studio 2, and paste the ADV_STATE.txt script into it. 
+Create a new script in Gamemaker Studio 2, and paste the contents of **[ADV_STATE.txt](ADV_STATE.txt)** script into it. 
 
 (I may come back and pretty this up later)
 
