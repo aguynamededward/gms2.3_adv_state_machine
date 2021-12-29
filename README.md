@@ -113,7 +113,7 @@ enum state { // Remember, state and substate enums must be a positive integer be
 	child_teenager,
 	
 	adult_college = 0,
-	adult_married,
+	adult_job,
 	adult_parent,
 
 
