@@ -60,8 +60,14 @@ If no argument is provided, it returns an INT of the current primary tier state.
 
 If a primary_tier_int is provided, it returns an INT of the current sub-tier state.
 
-(NOTE: if the current primary tier is different than the one supplied, the system will reset the state to the primary tier provided and set the sub-state to 0)
+### **NOTE:**
+If the current primary tier is *different* than the one supplied, the system will *reset the primary state* to the supplied one and set the sub-state to zero.  If you **do not want to risk resetting the primary state**, the easiest way is to double up the call:
 
+````
+adv_state_get(adv_state_get());
+````
+
+It works this way because I wanted to make sure the system was *always* running on the state I expected it to be running on, and if something had changed, I wanted the substate reset to 0.
 
 ## Setting the State
 ###        adv_state_set( primary_tier_int )
