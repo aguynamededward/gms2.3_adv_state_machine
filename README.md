@@ -119,7 +119,7 @@ enum state { // Remember, state and substate enums must be a positive integer be
 
 	elderly_retired = 0,
 	elderly_grandparent,
-	elderly_motorcycleGangLeader
+	elderly_motorcycleGangHooligan
 
 }
 
