@@ -14,10 +14,10 @@ I wanted a simple state machine that would:
 
 Create a new script in Gamemaker Studio 2, and paste the ADV_STATE.txt script into it. 
 
-(I may come back and pretty this up later, I'm working on something ATM)
+(I may come back and pretty this up later)
 
-I've provided a sample of how to use it in SAMPLE.txt.
-      
+In the code, I've included examples of how to set up easy-to-read enums and a template state system to paste into your object's step event.
+
 
 ### PLEASE NOTE
 
@@ -91,4 +91,39 @@ Functions exactly like adv_state_get, but on a separate object (provided by obje
 
 
 Functions exactly like adv_state_set, but on a separate object (provided by object_id).
+
+
+## Setting Up Good Enums
+
+This isn't required: the adv_state system works fine with integers, but enums obviously make it easier to read and follow along.  Here's the format for setting up enums that I like.  (You can paste this outside the regular code in the ADV_STATE system and the enums will be declared at runtime)
+
+````javascript
+
+enum state { // Remember, state and substate enums must be a positive integer between 0 and 9999
+
+	// list all the primary states first
+	child,
+	adult,
+	elderly,
+	
+	// list substates in an easy-to-remember way (resetting them to 0 is also nice for easy tracking)
+	
+	child_baby = 0,
+	child_toddler,
+	child_teenager,
+	
+	adult_college = 0,
+	adult_married,
+	adult_parent,
+
+
+	elderly_retired = 0,
+	elderly_grandparent,
+	elderly_motorcycleGangLeader
+
+}
+
+
+
+````
 
