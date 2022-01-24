@@ -100,7 +100,7 @@ function adv_state_get(_state = -1000){
 		if(!variable_instance_exists(id,"ADV_STATE")) ADV_STATE = _state;
 		if(floor(ADV_STATE) != _state) ADV_STATE = _state;
 	
-		return ((ADV_STATE - _state) * 10000);
+		return round((ADV_STATE - _state) * 10000); // added round because OCCASIONALLY I was getting 0.999999(something) instead of 1
 	}
 }
 
