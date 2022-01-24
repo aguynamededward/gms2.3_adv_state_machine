@@ -86,17 +86,17 @@ If two values are provided, it sets the primary tier to primary_tier_int and the
 
 ## External State Functions
 
-###         adv_state_external_get( object_id, [primary_tier_int] )
+###         adv_state_external_get( instance_id, [primary_tier_int] )
 
 
-Functions exactly like adv_state_get, but on a separate object (provided by object_id).
+Functions exactly like adv_state_get, but on a separate object (provided by instance_id).
 
 
 
-###        adv_state_external_set( object_id, primary_tier_int/undefined, [subtier_state_int] )
+###        adv_state_external_set( instance_id, primary_tier_int/undefined, [subtier_state_int] )
 
 
-Functions exactly like adv_state_set, but on a separate object (provided by object_id).
+Functions exactly like adv_state_set, but on a separate object (provided by instance_id).
 
 
 ## Setting Up Good Enums
