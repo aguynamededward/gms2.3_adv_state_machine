@@ -123,14 +123,14 @@ function adv_state_set(_state = undefined,_sub_state_int = 0) {
 }
 
 
-/// @func adv_state_external_get(object_id, [state_int]) No supplied state_int: returns object_id's primary state INT. With primary state_int, returns object_id's sub-state INT. 
- function adv_state_external_get(_object_id, _state = -1000){
+/// @func adv_state_external_get(instance_id, [state_int]) No supplied state_int: returns instance_id's primary state INT. With primary state_int, returns instance_id's sub-state INT. 
+ function adv_state_external_get(_instance_id, _state = -1000){
 	 
-	 if(instance_exists(_object_id))
+	 if(instance_exists(_instance_id))
 		{
 			var _val;
 			
-			with(_object_id)
+			with(_instance_id)
 				{
 					_val = adv_state_get(_state);	
 				}
@@ -140,20 +140,20 @@ function adv_state_set(_state = undefined,_sub_state_int = 0) {
 
 	else
 		{
-			show_debug_message("ADV_STATE_EXTERNAL_GET: " + string(_object_id) + " is not a valid instance ID (non-existent or deactivated?");	
+			show_debug_message("ADV_STATE_EXTERNAL_GET: " + string(_instance_id) + " is not a valid instance ID (non-existent or deactivated?");	
 			return -1;
 		}
  }
 
 
-/// @func adv_state_external_set(object_id, state_int,[sub_state_int]) Sets object_id's advanced state system to state (state_int) (and optionally: sub_state to sub_state_int)
-function adv_state_external_set(_object_id, _state = undefined,_sub_state_int = 0){
+/// @func adv_state_external_set(instance_id, state_int,[sub_state_int]) Sets instance_id's advanced state system to state (state_int) (and optionally: sub_state to sub_state_int)
+function adv_state_external_set(_instance_id, _state = undefined,_sub_state_int = 0){
 	 
-	 if(instance_exists(_object_id))
+	 if(instance_exists(_instance_id))
 		{
 			var _val;
 			
-			with(_object_id)
+			with(_instance_id)
 				{
 					_val = adv_state_set(_state,_sub_state_int);	
 				}
@@ -163,7 +163,7 @@ function adv_state_external_set(_object_id, _state = undefined,_sub_state_int = 
 
 	else
 		{
-			show_debug_message("ADV_STATE_EXTERNAL_SET: " + string(_object_id) + " is not a valid instance ID (non-existent or deactivated?");	
+			show_debug_message("ADV_STATE_EXTERNAL_SET: " + string(_instance_id) + " is not a valid instance ID (non-existent or deactivated?");	
 			return -1;
 		}
  }
