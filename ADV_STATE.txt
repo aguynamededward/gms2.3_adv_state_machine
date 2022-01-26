@@ -67,7 +67,7 @@ enum state { // Remember, state and substate enums must be a positive integer be
 
 	elderly_retired = 0,
 	elderly_grandparent,
-	elderly_motorcycleHooligan
+	elderly_motorcycleGangHooligan
 
 	// Look at the bottom of this code for an example of how to set up your state system in the STEP event
 }
@@ -88,6 +88,7 @@ function adv_state_get(_state = -1000){
 			if(!variable_instance_exists(id,"ADV_STATE")) 
 				{
 					id.ADV_STATE = 0;
+					id.ADV_STATE_LAST = 0;
 					return 0;
 				}
 			else return floor(ADV_STATE);
@@ -97,8 +98,16 @@ function adv_state_get(_state = -1000){
 	{	// we provided the state - we want the substate
 		_state = floor(_state);
 
-		if(!variable_instance_exists(id,"ADV_STATE")) ADV_STATE = _state;
-		if(floor(ADV_STATE) != _state) ADV_STATE = _state;
+		if(!variable_instance_exists(id,"ADV_STATE")) 
+			{
+				ADV_STATE = _state;
+				ADV_STATE_LAST = _state;
+			}
+		if(floor(ADV_STATE) != _state)
+			{
+				ADV_STATE_LAST = ADV_STATE;
+				ADV_STATE = _state;
+			}
 	
 		return round((ADV_STATE - _state) * 10000); // added round because OCCASIONALLY I was getting 0.999999(something) instead of 1
 	}
@@ -111,26 +120,53 @@ function adv_state_set(_state = undefined,_sub_state_int = 0) {
 	
 	if(_state == undefined) 
 		{
-			if(!variable_instance_exists(id,"ADV_STATE")) ADV_STATE = 0;
+			if(!variable_instance_exists(id,"ADV_STATE")) 
+				{
+					ADV_STATE = 0;
+					ADV_STATE_LAST = 0;
+				}
 			
 			_state = floor(ADV_STATE);	
 		}
 	else _state = floor(_state);
 	
+	ADV_STATE_LAST = ADV_STATE;
 	ADV_STATE = _state + (_sub_state_int/10000);
 	
 	return ADV_STATE;
 }
 
 
-/// @func adv_state_external_get(instance_id, [state_int]) No supplied state_int: returns instance_id's primary state INT. With primary state_int, returns instance_id's sub-state INT. 
- function adv_state_external_get(_instance_id, _state = -1000){
+/// @func adv_state_last_state_get() Returns the last state before the one we're presently on.
+function adv_state_last_state_get(){
+
+	if(!variable_instance_exists(id,"ADV_STATE_LAST")) ADV_STATE_LAST = adv_state_get();
+	
+	return floor(ADV_STATE_LAST);
+	
+}
+
+/// @func adv_state_last_substate_get() Returns the last substate before the one we're presently on.
+function adv_state_last_substate_get(){
+
+
+	if(!variable_instance_exists(id,"ADV_STATE_LAST")) ADV_STATE_LAST = adv_state_get();
+		
+	return round((ADV_STATE_LAST - floor(ADV_STATE_LAST)) * 10000);
+	
+	
+}
+
+
+
+/// @func adv_state_external_get(object_id, [state_int]) No supplied state_int: returns object_id's primary state INT. With primary state_int, returns object_id's sub-state INT. 
+ function adv_state_external_get(_object_id, _state = -1000){
 	 
-	 if(instance_exists(_instance_id))
+	 if(instance_exists(_object_id))
 		{
 			var _val;
 			
-			with(_instance_id)
+			with(_object_id)
 				{
 					_val = adv_state_get(_state);	
 				}
@@ -140,20 +176,20 @@ function adv_state_set(_state = undefined,_sub_state_int = 0) {
 
 	else
 		{
-			show_debug_message("ADV_STATE_EXTERNAL_GET: " + string(_instance_id) + " is not a valid instance ID (non-existent or deactivated?");	
+			show_debug_message("ADV_STATE_EXTERNAL_GET: " + string(_object_id) + " is not a valid instance ID (non-existent or deactivated?");	
 			return -1;
 		}
  }
 
 
-/// @func adv_state_external_set(instance_id, state_int,[sub_state_int]) Sets instance_id's advanced state system to state (state_int) (and optionally: sub_state to sub_state_int)
-function adv_state_external_set(_instance_id, _state = undefined,_sub_state_int = 0){
+/// @func adv_state_external_set(object_id, state_int,[sub_state_int]) Sets object_id's advanced state system to state (state_int) (and optionally: sub_state to sub_state_int)
+function adv_state_external_set(_object_id, _state = undefined,_sub_state_int = 0){
 	 
-	 if(instance_exists(_instance_id))
+	 if(instance_exists(_object_id))
 		{
 			var _val;
 			
-			with(_instance_id)
+			with(_object_id)
 				{
 					_val = adv_state_set(_state,_sub_state_int);	
 				}
@@ -163,12 +199,59 @@ function adv_state_external_set(_instance_id, _state = undefined,_sub_state_int 
 
 	else
 		{
-			show_debug_message("ADV_STATE_EXTERNAL_SET: " + string(_instance_id) + " is not a valid instance ID (non-existent or deactivated?");	
+			show_debug_message("ADV_STATE_EXTERNAL_SET: " + string(_object_id) + " is not a valid instance ID (non-existent or deactivated?");	
 			return -1;
 		}
  }
  
  
+ 
+ 
+ /// @func adv_state_external_last_state_get(object_id, [state_int]) No supplied state_int: returns object_id's primary state INT. With primary state_int, returns object_id's sub-state INT. 
+ function adv_state_external_last_state_get(_object_id, _state = -1000){
+	 
+	 if(instance_exists(_object_id))
+		{
+			var _val;
+			
+			with(_object_id)
+				{
+					_val = adv_state_last_state_get();	
+				}
+			
+			return _val;
+		}
+
+	else
+		{
+			show_debug_message("ADV_STATE_EXTERNAL_LAST_STATE_GET: " + string(_object_id) + " is not a valid instance ID (non-existent or deactivated?");	
+			return -1;
+		}
+ }
+
+ 
+ /// @func adv_state_external_last_substate_get(object_id, [state_int]) Returns the last substate of the given object.
+ function adv_state_external_last_substate_get(_object_id, _state = -1000){
+	 
+	 if(instance_exists(_object_id))
+		{
+			var _val;
+			
+			with(_object_id)
+				{
+					_val = adv_state_last_substate_get();	
+				}
+			
+			return _val;
+		}
+
+	else
+		{
+			show_debug_message("ADV_STATE_EXTERNAL_LAST_SUBSTATE_GET: " + string(_object_id) + " is not a valid instance ID (non-existent or deactivated?");	
+			return -1;
+		}
+ }
+
  
  
  /*
