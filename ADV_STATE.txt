@@ -88,7 +88,7 @@ function adv_state_get(_state = -1000){
 			if(!variable_instance_exists(id,"ADV_STATE")) 
 				{
 					id.ADV_STATE = 0;
-					id.ADV_STATE_LAST = 0;
+					id.ADV_STATE_LAST = -1;
 					return 0;
 				}
 			else return floor(ADV_STATE);
@@ -101,7 +101,7 @@ function adv_state_get(_state = -1000){
 		if(!variable_instance_exists(id,"ADV_STATE")) 
 			{
 				ADV_STATE = _state;
-				ADV_STATE_LAST = _state;
+				ADV_STATE_LAST = -1;
 			}
 		if(floor(ADV_STATE) != _state)
 			{
@@ -123,7 +123,7 @@ function adv_state_set(_state = undefined,_sub_state_int = 0) {
 			if(!variable_instance_exists(id,"ADV_STATE")) 
 				{
 					ADV_STATE = 0;
-					ADV_STATE_LAST = 0;
+					ADV_STATE_LAST = -1;
 				}
 			
 			_state = floor(ADV_STATE);	
@@ -137,20 +137,28 @@ function adv_state_set(_state = undefined,_sub_state_int = 0) {
 }
 
 
-/// @func adv_state_last_state_get() Returns the last state before the one we're presently on.
+/// @func adv_state_last_state_get() Returns the last state before the one we're presently on. If there was no previous, returns -1.
 function adv_state_last_state_get(){
 
-	if(!variable_instance_exists(id,"ADV_STATE_LAST")) ADV_STATE_LAST = adv_state_get();
+	if(!variable_instance_exists(id,"ADV_STATE_LAST")) 
+		{
+			ADV_STATE_LAST = -1;
+			return -1;
+		}
 	
 	return floor(ADV_STATE_LAST);
 	
 }
 
-/// @func adv_state_last_substate_get() Returns the last substate before the one we're presently on.
+/// @func adv_state_last_substate_get() Returns the last substate before the one we're presently on. If there was no previous, returns -1.
 function adv_state_last_substate_get(){
 
 
-	if(!variable_instance_exists(id,"ADV_STATE_LAST")) ADV_STATE_LAST = adv_state_get();
+	if(!variable_instance_exists(id,"ADV_STATE_LAST")) 
+		{
+			ADV_STATE_LAST = -1;
+			return -1;
+		}
 		
 	return round((ADV_STATE_LAST - floor(ADV_STATE_LAST)) * 10000);
 	
@@ -341,7 +349,6 @@ switch(_state)
 			}
 	
 	}
-	
 	
 	
 	
