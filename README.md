@@ -50,8 +50,9 @@ To move to a new primary or sub tier, call adv_state_set(primary_tier_int,[subti
 
 # HOW DOES THIS WORK? (documentation)
     
-It uses integers stored in a local variable ("ADV_STATE") on the calling object to manage progression through each primary tier and sub-tier state.
+It uses integers stored in local variables ("ADV_STATE" and "ADV_STATE_LAST") on the calling object to manage progression through each primary tier and sub-tier state.
 
+These functions are designed to be run on the object whose state you want to track.  To get/set states on other objects, check the External functions below.
 
 ## Getting the State
 ###  adv_state_get( [primary_tier_int] )
@@ -81,6 +82,18 @@ If two values are provided, it sets the primary tier to primary_tier_int and the
 * If the first value is **undefined** (the GMS constant, not a string called "undefined"), it uses the current primary tier and only sets the sub-tier.
 
 * If a primary tier has not been supplied or previously set, the Advanced State Machine will always set it to 0 by default.
+
+
+## Retrieving the previous state
+
+###        adv_state_last_state_get()
+
+###        adv_state_last_substate_get()
+
+Returns the previous state / substate to the one we're on now.  If there was no previous substate, it returns -1.
+
+### Note:
+* This is the only occasion where a separate function exists to get the substate.
 
 
 
