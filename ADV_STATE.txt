@@ -1,5 +1,5 @@
 /*
-Advanced State Machine v1.0 by Edward Newton (https://github.com/aguynamededward/gms2.3_adv_state_machine/)
+Advanced State Machine v1.1 by Edward Newton (https://github.com/aguynamededward/gms2.3_adv_state_machine/)
 Functional as of Gamemaker Studio 2 Runtime v2.3.3.437	
 	
 Bugs or other issues: twitter: @aguynamededward
@@ -28,6 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
+
 
 
 
@@ -118,16 +119,13 @@ function adv_state_get(_state = -1000){
 /// @func adv_state_set(state_int/undefined,[substate_int]) Sets the state to state.substate_int. 
 function adv_state_set(_state = undefined,_sub_state_int = 0) {
 	
-	if(_state == undefined) 
+	if(!variable_instance_exists(id,"ADV_STATE")) 
 		{
-			if(!variable_instance_exists(id,"ADV_STATE")) 
-				{
-					ADV_STATE = 0;
-					ADV_STATE_LAST = -1;
-				}
-			
-			_state = floor(ADV_STATE);	
+			ADV_STATE = 0;
+			ADV_STATE_LAST = -1;
 		}
+	
+	if(_state == undefined) _state = floor(ADV_STATE);	
 	else _state = floor(_state);
 	
 	ADV_STATE_LAST = ADV_STATE;
@@ -349,7 +347,6 @@ switch(_state)
 			}
 	
 	}
-	
 	
 	
  
